@@ -10,12 +10,13 @@ class Barang extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
+
     protected $table = 'barang';
     protected $fillable = [
+        "id",
         'name',
+        'category',
         'price',
-        'stock'
     ];
 
     protected $hidden = [
@@ -23,6 +24,4 @@ class Barang extends Model
         'updated_at',
         'deleted_at'
     ];
-
-    
 }

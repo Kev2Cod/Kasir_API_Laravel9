@@ -18,10 +18,10 @@ class BarangController extends Controller
     {
         $data = Barang::all();
 
-        if($data->count() > 0) {
-            return ApiFormatter::success('Data Barang', $data, 200);
+        if ($data->count() > 0) {
+            return ApiFormatter::success(200, 'Data Barang', $data);
         } else {
-            return ApiFormatter::error('Data Barang tidak ada', $data , 400);
+            return ApiFormatter::error(404, 'Data Barang tidak ada', $data);
         }
     }
 
@@ -46,21 +46,21 @@ class BarangController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
+                'category' => 'required',
                 'price' => 'required',
-                'stock' => 'required',
             ]);
 
             $barang = Barang::create([
                 'name' => $request->name,
+                'category' => $request->category,
                 'price' => $request->price,
-                'stock' => $request->stock
-            ]); 
+            ]);
 
             $data = Barang::where('id', "=", $barang->id)->get();
 
-            return ApiFormatter::success('Data Barang', $data, 200);
+            return ApiFormatter::success(200, 'Data Barang Berhasil disimpan', $data);
         } catch (Exception $e) {
-            return ApiFormatter::error($e->getMessage(), $data, 400);
+            return ApiFormatter::error(400, $e->getMessage());
         }
     }
 
@@ -72,7 +72,17 @@ class BarangController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $data = Barang::where('id', "=", $id)->get();
+
+            if ($data->count() > 0) {
+                return ApiFormatter::success(200, 'Data Barang', $data);
+            } else {
+                return ApiFormatter::error(404, 'Data Barang tidak ada', $data);
+            }
+        } catch (Exception $e) {
+            return ApiFormatter::error(400, $e->getMessage());
+        }
     }
 
     /**
@@ -98,21 +108,23 @@ class BarangController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
+                'category' => 'required',
                 'price' => 'required',
-                'stock' => 'required',
             ]);
+
+
 
             $barang = Barang::where('id', "=", $id)->update([
                 'name' => $request->name,
-                'price' => $request->price,
-                'stock' => $request->stock
-            ]); 
+                'category' => $request->category,
+                'price' => $request->price
+            ]);
 
-            $data = Barang::where('id', "=", $barang->id)->get();
+            $data = Barang::where('id', "=", $id)->get();
 
-            return ApiFormatter::success('Data Barang', $data, 200);
+            return ApiFormatter::success(200, 'Data Barang Berhasil di Update', $data);
         } catch (Exception $e) {
-            return ApiFormatter::error($e->getMessage(), $data, 400);
+            return ApiFormatter::error(400, $e->getMessage());
         }
     }
 
@@ -125,13 +137,10 @@ class BarangController extends Controller
     public function destroy($id)
     {
         try {
-            $barang = Barang::where('id', "=", $id)->delete();
-
-            $data = Barang::where('id', "=", $barang->id)->get();
-
-            return ApiFormatter::success('Data Barang', $data, 200);
+            Barang::where('id', "=", $id)->delete();
+            return ApiFormatter::success(200, 'Data Barang berhasil dihapus');
         } catch (Exception $e) {
-            return ApiFormatter::error($e->getMessage(), $data, 400);
+            return ApiFormatter::error(400, $e->getMessage());
         }
     }
 }

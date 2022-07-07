@@ -13,8 +13,8 @@ class ItemPenjualan extends Model
 
     protected $table = 'item_penjualan';
     protected $fillable = [
-        'penjualan_id',
-        'barang_id',
+        'id_nota',
+        'id_barang',
         'qty',
         'price',
     ];

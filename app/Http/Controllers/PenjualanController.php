@@ -18,10 +18,10 @@ class PenjualanController extends Controller
     {
         $data = Penjualan::all();
 
-        if($data->count() > 0) {
-            return ApiFormatter::success('Data Penjualan', $data);
+        if ($data->count() > 0) {
+            return ApiFormatter::success(200, 'Data Penjualan', $data);
         } else {
-            return ApiFormatter::error('Data Penjualan tidak ada');
+            return ApiFormatter::error(404, 'Data Penjualan tidak ada');
         }
     }
 
@@ -45,22 +45,20 @@ class PenjualanController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required',
-                'price' => 'required',
-                'stock' => 'required',
+                'id_pelanggan' => 'required',
+                'total_price' => 'required',
             ]);
 
             $barang = Penjualan::create([
-                'name' => $request->name,
-                'price' => $request->price,
-                'stock' => $request->stock
-            ]); 
+                'id_pelanggan' => $request->id_pelanggan,
+                'total_price' => $request->total_price,
+            ]);
 
             $data = Penjualan::where('id', "=", $barang->id)->get();
 
-            return ApiFormatter::success('Data Penjualan', $data);
+            return ApiFormatter::success(200, 'Data Penjualan Berhasil di update', $data);
         } catch (Exception $e) {
-            return ApiFormatter::error($e->getMessage());
+            return ApiFormatter::error(400, $e->getMessage());
         }
     }
 
@@ -73,10 +71,10 @@ class PenjualanController extends Controller
     public function show($id)
     {
         $data = Penjualan::where('id', "=", $id)->get();
-        if($data->count() > 0) {
-            return ApiFormatter::success('Data Penjualan', $data);
+        if ($data->count() > 0) {
+            return ApiFormatter::success(200, 'Data Penjualan', $data);
         } else {
-            return ApiFormatter::error('Data Penjualan tidak ada');
+            return ApiFormatter::error(404, 'Data Penjualan tidak ada');
         }
     }
 
@@ -88,7 +86,6 @@ class PenjualanController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -102,22 +99,20 @@ class PenjualanController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required',
-                'price' => 'required',
-                'stock' => 'required',
+                'id_pelanggan' => 'required',
+                'total_price' => 'required',
             ]);
 
             $barang = Penjualan::where('id', "=", $id)->update([
-                'name' => $request->name,
-                'price' => $request->price,
-                'stock' => $request->stock
-            ]); 
+                'id_pelanggan' => $request->id_pelanggan,
+                'total_price' => $request->total_price,
+            ]);
 
-            $data = Penjualan::where('id', "=", $barang->id)->get();
+            $data = Penjualan::where('id', "=", $id)->get();
 
-            return ApiFormatter::success('Data Penjualan', $data);
+            return ApiFormatter::success(200, 'Data Penjualan Berhasil diupdate', $data);
         } catch (Exception $e) {
-            return ApiFormatter::error($e->getMessage());
+            return ApiFormatter::error(400, $e->getMessage());
         }
     }
 
@@ -131,9 +126,9 @@ class PenjualanController extends Controller
     {
         try {
             $barang = Penjualan::where('id', "=", $id)->delete();
-            return ApiFormatter::success('Data Penjualan', $barang);
+            return ApiFormatter::success(200, 'Data Penjualan berhasil dihapus', $barang);
         } catch (Exception $e) {
-            return ApiFormatter::error($e->getMessage());
+            return ApiFormatter::error(400, $e->getMessage());
         }
     }
 }

@@ -120,7 +120,7 @@ class PelangganController extends Controller
                 'gender' => $request->gender,
             ]);
 
-            $data = Pelanggan::where('id', '=', $pelanggan->id)->get();
+            $data = Pelanggan::where('id', '=', $id)->get();
 
             if ($data) {
                 return ApiFormatter::success(200, "Update data pelanggan berhasil", $data);

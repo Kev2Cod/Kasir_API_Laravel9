@@ -13,11 +13,12 @@ class Penjualan extends Model
 
     protected $table = 'Penjualan';
     protected $fillable = [
-        'customer_id',
+        'id_pelanggan',
         'total_price',
     ];
 
     protected $hidden = [
+        'updated_at',  
         'created_at',
         'deleted_at'
     ];

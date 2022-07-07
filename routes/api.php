@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ItemPenjualanController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PenjualanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,32 +19,32 @@ use Illuminate\Support\Facades\Route;
 */
 // Pelanggan
 Route::get('/pelanggan', [PelangganController::class, 'index']);
-Route::post('/pelanggan', [PelangganController::class, 'store']);
+Route::post('/pelanggan/post', [PelangganController::class, 'store']);
 Route::get('/pelanggan/{id}', [PelangganController::class, 'show']);
 Route::put('/pelanggan/{id}', [PelangganController::class, 'update']);
-Route::delete('/pelanggan/{id}', [PelangganController::class, 'destroy']); 
+Route::delete('/pelanggan/{id}', [PelangganController::class, 'destroy']);
 
-// // Barang 
-// Route::get('/barang', [BarangController::class, 'index']);
-// Route::post('/barang/post', [BarangController::class, 'store']);
-// Route::get('/barang/{id}', [BarangController::class, 'show']);
-// Route::put('/barang/{id}', [BarangController::class, 'update']);
-// Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
+// Barang  
+Route::get('/barang', [BarangController::class, 'index']);
+Route::post('/barang/post', [BarangController::class, 'store']);
+Route::get('/barang/{id}', [BarangController::class, 'show']);
+Route::put('/barang/{id}', [BarangController::class, 'update']);
+Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
 
 // // Penjualan
-// Route::get('/penjualan', [PenjualanController::class, 'index']);
-// Route::post('/penjualan/post', [PenjualanController::class, 'store']);
-// Route::get('/penjualan/{id}', [PenjualanController::class, 'show']);
-// Route::put('/penjualan/{id}', [PenjualanController::class, 'update']);
-// Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy']);
+Route::get('/penjualan', [PenjualanController::class, 'index']);
+Route::post('/penjualan/post', [PenjualanController::class, 'store']);
+Route::get('/penjualan/{id}', [PenjualanController::class, 'show']);
+Route::put('/penjualan/{id}', [PenjualanController::class, 'update']);
+Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy']);
 
 
-// // Item Penjualan 
-// Route::get('/item-penjualan', [ItemPenjualanController::class, 'index']);
-// Route::post('/item-penjualan/post', [ItemPenjualanController::class, 'store']);
-// Route::get('/item-penjualan/{id}', [ItemPenjualanController::class, 'show']);
-// Route::put('/item-penjualan/{id}', [ItemPenjualanController::class, 'update']);
-// Route::delete('/item-penjualan/{id}', [ItemPenjualanController::class, 'destroy']);
+// Item Penjualan 
+Route::get('/item-penjualan', [ItemPenjualanController::class, 'index']);
+Route::post('/item-penjualan/post', [ItemPenjualanController::class, 'store']);
+Route::get('/item-penjualan/{id}', [ItemPenjualanController::class, 'show']);
+Route::put('/item-penjualan/{id}', [ItemPenjualanController::class, 'update']);
+Route::delete('/item-penjualan/{id}', [ItemPenjualanController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

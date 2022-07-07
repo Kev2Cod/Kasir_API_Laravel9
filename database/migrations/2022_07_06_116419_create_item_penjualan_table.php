@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('item_penjualan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("invoice");
-            $table->foreign('invoice')->references('id')->on('penjualan');
+            $table->unsignedBigInteger("id_nota");
+            $table->foreign('id_nota')->references('id')->on('penjualan');
             $table->unsignedBigInteger('id_barang');
             $table->foreign('id_barang')->references('id')->on('barang');
+            $table->integer('qty');
             $table->softDeletes();
             $table->timestamps();
         });
